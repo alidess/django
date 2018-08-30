@@ -6,7 +6,6 @@ from django.views.decorators.csrf import requires_csrf_token
 # Create your views here.
 
 
-
 @requires_csrf_token
 def signup_sponsor(request):
     if request.method == 'POST':
@@ -21,16 +20,15 @@ def signup_sponsor(request):
         phone = request.POST.get("phone")
         img = request.POST.get("img")
         monthlySalary = request.POST.get("monthlySalary")
-        form1 = User.objects.create_user(username=username, password=password)
-        form1.save()
-        form2 = Sponsor(full_name=fullName, age=age, birth_date=birthDate, city=governorate, work=job, work_locations=jobAddress, number=phone, img=img, salary=monthlySalary)
-        form2.save
-        user = authenticate(request, username=username, password=password)
-        login(request,user)
-        return render(request,"bise.html")
-    return render(request,signup_sponsor.html)
+        try:
+            form1 = User.objects.create_user(username=username, password=password)
+            form1.save()
+            form2 = Sponsor(username=username, full_name=fullName, age=age, birth_date=birthDate, city=governorate, work=job, work_locations=jobAddress, number=phone, img=img, salary=monthlySalary)
+            form2.save()
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return render(request, "bise.html")
+        except:
+            return render(request, 'signup_sponsor.html', {'msg': 'This username has already been used'})
+    return render(request, 'signup_sponsor.html')
 
-
- 
-
- 
