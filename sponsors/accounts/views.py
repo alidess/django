@@ -20,6 +20,7 @@ def signup_sponsor(request):
         phone = request.POST.get("phone")
         img = request.POST.get("img")
         monthlySalary = request.POST.get("monthlySalary")
+<<<<<<< HEAD
         try:
             form1 = User.objects.create_user(username=username, password=password)
             form1.save()
@@ -31,4 +32,32 @@ def signup_sponsor(request):
         except:
             return render(request, 'signup_sponsor.html', {'msg': 'This username has already been used'})
     return render(request, 'signup_sponsor.html')
+=======
+        form1 = User.objects.create_user(username=username, password=password)
+        form1.save()
+        form2 = Sponsor(full_name=fullName, age=age, birth_date=birthDate, city=governorate, work=job, work_locations=jobAddress, number=phone, img=img, salary=monthlySalary)
+        form2.save
+        user = authenticate(request, username=username, password=password)
+        login(request,user)
+        return render(request,"bise.html")
+    return render(request,signup_sponsor.html)
+    def logins(request):
+        if request.method=="POST":
+            username=request.POST.get('username')
+            password=request.POST.get('password')
+            user=authenticate(request,username=username, password=password)
+            if user is not None:
+                login(request,user)
+                return render(request,'bise.html',{'user':username})
+            return render(request,'login.html')
+
+    def logouts(request):
+    if request.POST.get('logout'):
+        logout(request)
+            
+
+
+
+ 
+>>>>>>> refs/remotes/origin/master
 
