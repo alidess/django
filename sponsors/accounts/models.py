@@ -6,6 +6,7 @@ from django.db import models
 
 
 class Sponsor(models.Model):
+    username = models.CharField(max_length=100, blank=True)
     full_name = models.CharField(max_length=100, blank=False)
     age = models.IntegerField(blank=True)
     birth_date = models.DateField(null=True)
